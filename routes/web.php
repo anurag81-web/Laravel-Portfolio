@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\Admin\AboutController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,11 +22,15 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
 
-    Route::get('/intro', fn() => 'Intro Section')->name('admin.intro');
-    Route::get('/about', fn() => 'About Section')->name('admin.about');
-    Route::get('/skills', fn() => 'Skills Section')->name('admin.skills');
-    Route::get('/projects', fn() => 'Projects Section')->name('admin.projects');
+    // Resource routes for admin-managed content
+    Route::resource('about', AboutController::class)->except(['show']);
+    Route::resource('project', \App\Http\Controllers\Admin\ProjectController::class)->except(['show']);
+    Route::resource('skill', \App\Http\Controllers\Admin\SkillController::class)->except(['show']);
+    Route::resource('hero', \App\Http\Controllers\Admin\HeroController::class)->only(['index','edit','update']);
+    Route::resource('setting', \App\Http\Controllers\Admin\SettingController::class)->only(['index','edit','update','store']);
+    
+    // TODO: add resources for projects, skills, hero, settings
 });
