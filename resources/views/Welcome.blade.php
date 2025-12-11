@@ -38,88 +38,93 @@
             <!-- Left Content -->
             <div class="home-content">
                 <h1 class="home-title">
-                    Hello, I'm <span class="gradient-text">Anurag Adhikari</span>
+                    {{ $hero->title ?? "Hello, I'm" }} <span
+                        class="gradient-text">{{ $hero->name ?? 'Anurag Adhikari' }}</span>
                 </h1>
-                <h2 class="home-subtitle">Full Stack Web Developer</h2>
+                <h2 class="home-subtitle">{{ $hero->subtitle ?? 'Full Stack Web Developer' }}</h2>
                 <p class="home-description">
-                    Passionate about creating elegant solutions to complex problems. Specialized in Laravel, PHP, and
-                    modern web technologies.
+                    {{ $hero->description ?? 'Passionate about creating elegant solutions to complex problems. Specialized in Laravel, PHP, and modern web technologies.' }}
                 </p>
                 <div class="home-buttons">
                     <a href="#projects" class="btn">View My Work</a>
-                    <a href="assets/cv.pdf" class="btn btn-outline">MY CV</a>
+                    @if(optional($hero)->cv_link)
+                        <a href="{{ asset('storage/' . $hero->cv_link) }}" class="btn btn-outline" target="_blank">MY CV</a>
+                    @else
+                        <a href="#" class="btn btn-outline">MY CV</a>
+                    @endif
                 </div>
             </div>
 
             <!-- Right Profile Image -->
             <div class="home-image">
-                <img src="{{ asset('assets/profile.png') }}" alt="Anurag Adhikari" class="profile-img">
+                <img src="{{ optional($hero)->profile_image ? asset('storage/' . $hero->profile_image) : asset('assets/profile.png') }}"
+                    alt="{{ $hero->name ?? 'Anurag Adhikari' }}" class="profile-img">
             </div>
         </div>
     </section>
 
 
     <!-- About Section -->
-    <section class="about" id="about">
+    <section class="about section" id="about">
         <h1 class="heading"><span>About Me</span></h1>
         <div class="row">
             <div class="about-text">
-                <p>I am a motivated backend development intern currently working with PHP and MySQL to build functional,
-                    efficient server-side systems. With a background in Computer Engineering, I'm learning to design and
-                    structure databases, and write clean, maintainable code. I enjoy solving real-world problems,
-                    understanding system logic, and improving how applications work behind the scenes. Every project I
-                    work on helps me grow my technical skills, analytical thinking, and confidence as a developer. I'm
-                    committed to learning continuously and becoming a strong backend developer with full-stack
-                    capabilities.</p>
+                <p>{{ $about->description ?? 'I am a motivated backend development intern...' }}</p>
             </div>
             <div class="info-container">
                 <div class="box">
-                    <h3><span>Name:</span> Anurag Adhikari</h3>
-                    <h3><span>Education:</span> Bachelors in Computer Engineering</h3>
-                    <h3><span>Email:</span> aanurag677@gmail.com</h3>
-                    <h3><span>Location:</span> Kirtipur, Kathmandu</h3>
+                    <h3><span>Name:</span> {{ $about->name ?? 'Anurag Adhikari' }}</h3>
+                    <h3><span>Education:</span> {{ $about->education ?? 'Bachelors in Computer Engineering' }}</h3>
+                    <h3><span>Email:</span> {{ $about->email ?? 'aanurag677@gmail.com' }}</h3>
+                    <h3><span>Location:</span> {{ $about->location ?? 'Kirtipur, Kathmandu' }}</h3>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section class="skills" id="skills">
+    <section class="skills section" id="skills">
         <h1 class="heading"><span>Skills</span></h1>
         <div class="box-container">
-            <div class="box">
-                <h3>Languages</h3>
-                <p>Python, HTML, CSS, PHP, C++, C</p>
-            </div>
-            <div class="box">
-                <h3>Tools</h3>
-                <p>MySQL, Git & GitHub, API</p>
-            </div>
-            <div class="box">
-                <h3>Soft skills</h3>
-                <p>Report Writing, Communication, Team Work</p>
-            </div>
-            <div class="box">
-                <h3>Framework</h3>
-                <p>Laravel</p>
-            </div>
+            @forelse($skills->groupBy('name') as $categoryName => $skillRows)
+                <div class="box">
+                    <h3>{{ $categoryName }}</h3>
+                    <div class="flex flex-col gap-2 mt-4">
+                        @foreach($skillRows as $skillRow)
+                            @foreach(explode(',', $skillRow->skill_name) as $item)
+                                <span class="text-2xl text-slate-700 font-medium">{{ trim($item) }}</span>
+                            @endforeach
+                        @endforeach
+                    </div>
+                </div>
+            @empty
+                <div class="box">
+                    <h3>Languages</h3>
+                    <p>Python, HTML, CSS, PHP, C++, C</p>
+                </div>
+            @endforelse
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section class="projects" id="projects">
+    <section class="projects section" id="projects">
         <h1 class="heading"><span>My Projects</span></h1>
         <div class="box-container">
-            <div class="box">
-                <h3>Portfolio Website</h3>
-                <p>A modern, responsive personal portfolio website built with Laravel and modern web technologies.
-                    Features dynamic content management and elegant UI/UX design.</p>
-            </div>
-            <div class="box">
-                <h3>E-commerce Platform</h3>
-                <p>A full-featured online marketplace with secure payment integration, product management, and user
-                    authentication. Built for scalability and performance.</p>
-            </div>
+            @forelse($projects as $project)
+                <div class="box">
+                    <h3>{{ $project->title }}</h3>
+                    <p>{{ $project->description }}</p>
+                    @if($project->link)
+                        <a href="{{ $project->link }}" target="_blank" class="btn"
+                            style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 0.9rem;">View Project</a>
+                    @endif
+                </div>
+            @empty
+                <div class="box">
+                    <h3>Portfolio Website</h3>
+                    <p>A modern, responsive personal portfolio website...</p>
+                </div>
+            @endforelse
         </div>
     </section>
 

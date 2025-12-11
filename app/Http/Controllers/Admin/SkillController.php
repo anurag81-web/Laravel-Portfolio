@@ -10,7 +10,12 @@ class SkillController extends Controller
 {
     public function index()
     {
-        $skills = Skill::orderBy('id', 'desc')->paginate(10);
+        $skills = Skill::orderBy('id', 'desc')->get();
+
+        if ($skills->isEmpty()) {
+            return redirect()->route('admin.skill.create');
+        }
+
         return view('admin.skill.index', compact('skills'));
     }
 
@@ -23,7 +28,7 @@ class SkillController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'level' => 'nullable|numeric|min:0|max:100',
+            'skill_name' => 'required|string',
         ]);
 
         Skill::create($data);
@@ -40,7 +45,7 @@ class SkillController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'level' => 'nullable|numeric|min:0|max:100',
+            'skill_name' => 'required|string',
         ]);
 
         $skill->update($data);

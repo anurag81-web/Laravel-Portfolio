@@ -9,6 +9,12 @@ class Hero extends Model
     // Table name doesn't follow Laravel pluralization, set explicitly
     protected $table = 'hero_section';
 
-    // Allow mass assignment for now
-    protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'name',
+        'subtitle',
+        'description',
+        'profile_image',
+        'cv_link',
+    ];
 }

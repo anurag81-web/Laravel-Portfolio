@@ -1,6 +1,3 @@
 @props(['disabled' => false])
 
-<input @disabled($disabled) {{ $attributes->merge(['class' => 'w-full rounded-xl shadow-sm transition-all duration-300 ease-in-out font-sans']) }}
-    style="padding: 13px 16px; background: rgba(248, 250, 252, 0.8); border: 2px solid rgba(203, 213, 225, 0.5); font-size: 1rem; font-family: 'Poppins', sans-serif;"
-    onfocus="this.style.borderColor='#1d4ed8'; this.style.background='#ffffff'; this.style.boxShadow='0 0 0 4px rgba(29, 78, 216, 0.1)'; this.style.transform='translateY(-2px)';"
-    onblur="this.style.borderColor='rgba(203, 213, 225, 0.5)'; this.style.background='rgba(248, 250, 252, 0.8)'; this.style.boxShadow='none'; this.style.transform='translateY(0)';">
+<input @disabled($disabled) {{ $attributes->merge(['class' => 'w-full px-5 py-4 bg-white/50 border-2 border-gray-200 text-dark rounded-xl shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 font-sans disabled:opacity-50 disabled:bg-gray-100 placeholder-gray-400']) }}>

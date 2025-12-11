@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use App\Models\About;
 use Illuminate\Http\Request;
@@ -11,8 +10,11 @@ class AboutController extends Controller
 {
     public function index()
     {
-        $abouts = About::orderBy('id', 'desc')->paginate(10);
-        return view('admin.about.index', compact('abouts'));
+        $about = About::first();
+        if ($about) {
+            return redirect()->route('admin.about.edit', $about);
+        }
+        return redirect()->route('admin.about.create');
     }
 
     public function create()
@@ -24,17 +26,15 @@ class AboutController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'photo' => 'nullable|image|max:2048',
+            'description' => 'required|string',
+            'education' => 'nullable|string',
+            'email' => 'nullable|email',
+            'location' => 'nullable|string',
         ]);
-
-        if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('about', 'public');
-        }
 
         About::create($data);
 
-        return redirect()->route('admin.about.index')->with('success', 'About entry created.');
+        return redirect()->route('admin.about.index')->with('success', 'About section created.');
     }
 
     public function edit(About $about)
@@ -46,29 +46,20 @@ class AboutController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'photo' => 'nullable|image|max:2048',
+            'description' => 'required|string',
+            'education' => 'nullable|string',
+            'email' => 'nullable|email',
+            'location' => 'nullable|string',
         ]);
-
-        if ($request->hasFile('photo')) {
-            if ($about->photo) {
-                Storage::disk('public')->delete($about->photo);
-            }
-            $data['photo'] = $request->file('photo')->store('about', 'public');
-        }
 
         $about->update($data);
 
-        return redirect()->route('admin.about.index')->with('success', 'About entry updated.');
+        return redirect()->route('admin.about.index')->with('success', 'About section updated.');
     }
 
     public function destroy(About $about)
     {
-        if ($about->photo) {
-            Storage::disk('public')->delete($about->photo);
-        }
         $about->delete();
-
-        return redirect()->route('admin.about.index')->with('success', 'About entry deleted.');
+        return redirect()->route('admin.about.index')->with('success', 'About section deleted.');
     }
 }

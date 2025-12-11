@@ -12,6 +12,11 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::orderBy('id', 'desc')->paginate(10);
+
+        if ($projects->isEmpty()) {
+            return redirect()->route('admin.project.create');
+        }
+
         return view('admin.project.index', compact('projects'));
     }
 
@@ -25,7 +30,7 @@ class ProjectController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|max:4096',
+            'image' => 'nullable|image|max:40960',
             'link' => 'nullable|url',
         ]);
 

@@ -10,16 +10,16 @@ class WelcomeController extends Controller
     public function index()
     {
         // Fetch hero section data
-        $hero = DB::table('hero_section')->first();
+        $hero = \App\Models\Hero::first();
 
         // Fetch about me data
-        $about = DB::table('about_me')->first();
+        $about = \App\Models\About::first();
 
         // Fetch skills data
-        $skills = DB::table('skills')->orderBy('id', 'ASC')->get();
+        $skills = \App\Models\Skill::all();
 
         // Fetch projects data
-        $projects = DB::table('projects')->orderBy('id', 'ASC')->get();
+        $projects = \App\Models\Project::all();
 
         return view('welcome', compact('hero', 'about', 'skills', 'projects'));
     }
