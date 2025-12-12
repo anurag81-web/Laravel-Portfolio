@@ -134,6 +134,26 @@
                                 Manage
                             </a>
                         </div>
+
+                        <!-- Social Links Card -->
+                        <div
+                            class="bg-white p-8 rounded-3xl shadow-card hover:shadow-hover hover:-translate-y-2 transition-all duration-300 border border-black/5 relative overflow-hidden group">
+                            <div
+                                class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M18 2a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2h12zm-6 14a4 4 0 100-8 4 4 0 000 8z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-dark mb-2">Social Links</h3>
+                            <p class="text-gray-600 font-medium mb-6 text-base">Manage all social media links.</p>
+                            <a href="{{ route('admin.sociallink.index') }}"
+                                class="inline-block px-6 py-2 bg-primary text-white font-semibold rounded-full shadow-lg shadow-primary/30 hover:bg-primary-dark hover:-translate-y-1 transition-all duration-300">
+                                Manage
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>

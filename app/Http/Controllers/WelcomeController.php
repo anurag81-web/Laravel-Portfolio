@@ -21,6 +21,9 @@ class WelcomeController extends Controller
         // Fetch projects data
         $projects = \App\Models\Project::all();
 
-        return view('welcome', compact('hero', 'about', 'skills', 'projects'));
+        // Fetch social links data
+        $sociallinks = \App\Models\SocialLink::all();
+
+        return view('welcome', compact('hero', 'about', 'skills', 'projects' , 'sociallinks'));
     }
 }

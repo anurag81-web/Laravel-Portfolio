@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Admin\AboutController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\SocialLinkController;
+
+
 
 Route::get('/', [WelcomeController::class, 'index'])->name('home');
 
@@ -28,6 +31,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('project', \App\Http\Controllers\Admin\ProjectController::class)->except(['show']);
     Route::resource('skill', \App\Http\Controllers\Admin\SkillController::class)->except(['show']);
     Route::resource('hero', \App\Http\Controllers\Admin\HeroController::class);
+    Route::resource('sociallink', SocialLinkController::class)->except(['show']);
+    
 
 
 
