@@ -32,8 +32,5 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('skill', \App\Http\Controllers\Admin\SkillController::class)->except(['show']);
     Route::resource('hero', \App\Http\Controllers\Admin\HeroController::class);
     Route::resource('sociallink', SocialLinkController::class)->except(['show']);
-    
-
-
 
 });

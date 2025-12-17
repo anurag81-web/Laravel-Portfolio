@@ -33,9 +33,12 @@
                     class="block px-5 py-3 rounded-full hover:bg-white/10 transition-all duration-300 {{ request()->routeIs('admin.project.*') ? 'bg-primary shadow-lg shadow-primary/30' : 'text-gray-300' }}">
                     Projects
                 </a>
-                <!-- Settings Removed -->
-
-                <!-- Logout Removed as per user request -->
+                
+                <a href="{{ route('admin.sociallink.index') }}"
+                    class="block px-5 py-3 rounded-full hover:bg-white/10 transition-all duration-300 {{ request()->routeIs('admin.sociallink.*') ? 'bg-primary shadow-lg shadow-primary/30' : 'text-gray-300' }}">
+                    Social Links
+                </a>
+                
             </nav>
         </aside>
 
