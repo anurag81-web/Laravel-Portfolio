@@ -157,8 +157,6 @@
     <p>© {{ date('Y') }} {{ $about->name }}. All Rights Reserved.</p>
     </footer>
 
-
-
     <script src="{{ asset('js/app.js') }}"></script>
 
 </body>

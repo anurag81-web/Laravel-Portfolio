@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SocialLink extends Model
 {
-    protected $table = 'social_links'; // Make sure this matches your table name
-    protected $fillable = ['platform', 'url']; // Your columns
+    protected $table = 'social_links'; 
+    protected $fillable = ['platform', 'url']; 
 }
 

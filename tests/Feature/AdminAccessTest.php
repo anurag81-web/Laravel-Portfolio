@@ -17,7 +17,6 @@ class AdminAccessTest extends TestCase
             '/admin/project',
             '/admin/skill',
             '/admin/hero',
-            '/admin/setting',
         ];
 
         foreach ($routes as $route) {

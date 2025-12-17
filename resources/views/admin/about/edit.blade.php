@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
     <div class="container mx-auto py-8">
         <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Edit About Section</h1>
@@ -13,6 +14,7 @@
                 </ul>
             </div>
         @endif
+        
 
         <form action="{{ route('admin.about.update', $about) }}" method="POST" enctype="multipart/form-data"
             class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
